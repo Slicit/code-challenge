@@ -1,6 +1,60 @@
-# Examples calls to OpenAI API
+# Code Challenge 2025
 
-## Upload a file
+## Bases
+
+- Docker
+- Docker Compose
+- Symfony 7.2
+- PostgreSQL
+- PHP 8.2
+- TailwindCSS
+- Twig
+- Debug
+- PHPUnit
+- Doctrine
+
+## Initial setup
+
+```bash
+
+# Estimated build time 140s
+docker compose up -d
+```
+
+## Setup your OpenAI API key IF needed
+
+in `.env` file or `.env.local` file
+
+```bash
+
+# Replace me
+OPENAI_API_KEY=sk-proj-replace-me
+```
+
+## Open the browser
+
+```bash
+
+# Open the browser
+open http://localhost:42424
+
+OR
+
+open http://172.21.42.101
+```
+
+## Shortcut commands
+
+```bash
+
+# Run symfony console
+./console   # for docker compose exec symfony-dev php bin/console
+./symfony   # for docker compose exec symfony-dev symfony
+./phpunit   # for docker compose exec symfony-dev php bin/phpunit
+./composer  # for docker compose exec symfony-dev composer
+```
+
+### cURL examples
 
 ```bash
 
@@ -34,7 +88,7 @@ curl -vva https://api.openai.com/v1/files \
 
 OPENAI_API_KEY="sk-proj-xyz"
 
-curl "https://api.openai.com/v1/responses" \
+curl -vva "https://api.openai.com/v1/responses" \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $OPENAI_API_KEY" \
     -d '{

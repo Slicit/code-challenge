@@ -1,0 +1,11 @@
+var
+var/*
+vendor
+vendor/*
+.git
+.git/*
+.gitignore
+.idea
+.vscode
+.docker
+composer.lock

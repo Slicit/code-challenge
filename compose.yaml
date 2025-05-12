@@ -1,11 +1,17 @@
+networks:
+  code-challenge-25-network-ip:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.21.42.0/24
+          gateway: 172.21.42.1
 
 services:
-###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-16}-alpine
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
       POSTGRES_USER: ${POSTGRES_USER:-app}
     healthcheck:
@@ -14,12 +20,24 @@ services:
       retries: 5
       start_period: 60s
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - ./postgres:/var/lib/postgresql/data:rw
+    networks:
+      code-challenge-25-network-ip:
+        ipv4_address: "172.21.42.100"
+
+  symfony-dev:
+    build:
+      context: ./.docker/symfony-dev
+    volumes:
+      - .:/var/www/symfony/
+      - symfony_app_var:/var/www/symfony/var
+      - symfony_app_vendor:/var/www/symfony/vendor
+    ports:
+      - "42424:80"
+    networks:
+      code-challenge-25-network-ip:
+        ipv4_address: "172.21.42.101"
 
 volumes:
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###
+  symfony_app_var:
+  symfony_app_vendor:

@@ -9,17 +9,16 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class OpenAIService
 {
     private HttpClientInterface $client;
     private string $apiKey;
 
-    public function __construct(ParameterBagInterface $params)
+    public function __construct(string $apiKey)
     {
         $this->client = HttpClient::create();
-        $this->apiKey = $params->get('openai.api_key');
+        $this->apiKey = $apiKey;
     }
 
     /**

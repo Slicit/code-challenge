@@ -13,4 +13,12 @@ class HomeController extends AbstractController
     {
         return $this->render('home/index.html.twig');
     }
+
+    #[Route('/index.json', name: 'index_json')]
+    public function indexJson(): Response
+    {
+        return $this->json([
+            'message' => 'Hello World!',
+        ]);
+    }
 }
